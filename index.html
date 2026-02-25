@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#ffd6f6,#f3c4ff,#ffe0f0,#e4c1ff);
+    overflow:hidden;
+}
+
+.container{
+    width:95%;
+    max-width:390px;
+    height:92vh;
+    border-radius:35px;
+    padding:28px;
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(25px);
+    box-shadow:0 25px 60px rgba(255,105,180,0.35);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:hidden;
+}
+
+.title{
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    color:white;
+    letter-spacing:2px;
+}
+
+.slider{
+    flex:1;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.slides{
+    display:flex;
+    transition:transform 0.7s ease;
+    height:100%;
+}
+
+.slide{
+    min-width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:18px;
+    color:white;
+    padding:20px;
+    line-height:1.8;
+}
+
+/* FINAL BONITO */
+.final{
+    flex-direction:column;
+    animation:fadeIn 1.2s ease;
+}
+
+.final .text{
+    font-size:30px;
+    font-weight:bold;
+    color:#ffffff;
+    text-shadow:0 0 15px rgba(255,255,255,0.9);
+}
+
+.final .name{
+    font-size:22px;
+    margin-top:10px;
+    letter-spacing:2px;
+    color:#ffffff;
+    text-shadow:0 0 10px rgba(255,255,255,0.7);
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.9);}
+    to{opacity:1; transform:scale(1);}
+}
+
+.controls{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+}
+
+button{
+    flex:1;
+    margin:0 6px;
+    padding:12px;
+    border:none;
+    border-radius:30px;
+    font-size:15px;
+    font-weight:bold;
+    background:linear-gradient(45deg,#ff8edb,#ffb3ec);
+    color:white;
+}
+
+.dots{
+    text-align:center;
+    margin-top:8px;
+}
+
+.dot{
+    width:7px;
+    height:7px;
+    display:inline-block;
+    margin:4px;
+    background:white;
+    border-radius:50%;
+    opacity:0.4;
+}
+
+.dot.active{
+    opacity:1;
+    transform:scale(1.4);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="title">Carta</div>
+
+<div class="slider">
+<div class="slides" id="slides">
+
+<div class="slide">
+Te doy esta segunda oportunidad como amigos.
+No es por costumbre.
+No es por nostalgia.
+Es porque decidí creer una vez más.
+</div>
+
+<div class="slide">
+Esta es tu segunda bala.
+Úsala bien.
+Porque no habrá una tercera.
+</div>
+
+<div class="slide">
+Pero hoy no es día de reclamos.
+Hoy es tu día.
+</div>
+
+<div class="slide final">
+<div class="text">🎉 Feliz Cumpleaños 🎂</div>
+<div class="name">Elianny ✨</div>
+</div>
+
+</div>
+</div>
+
+<div class="dots">
+<span class="dot active"></span>
+<span class="dot"></span>
+<span class="dot"></span>
+<span class="dot"></span>
+</div>
+
+<div class="controls">
+<button onclick="prev()">◀</button>
+<button onclick="next()">▶</button>
+</div>
+
+</div>
+
+<script>
+let index=0;
+const slides=document.getElementById("slides");
+const dots=document.querySelectorAll(".dot");
+const total=4;
+
+function update(){
+slides.style.transform="translateX(-"+index*100+"%)";
+dots.forEach(d=>d.classList.remove("active"));
+dots[index].classList.add("active");
+}
+
+function next(){
+index=(index+1)%total;
+update();
+}
+
+function prev(){
+index=(index-1+total)%total;
+update();
+}
+</script>
+
+</body>
+</html>
