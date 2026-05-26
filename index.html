@@ -3,204 +3,226 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carta</title>
+<title>Carta 💌</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
     height:100vh;
+    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-family:'Segoe UI',sans-serif;
-    background:linear-gradient(135deg,#ffd6f6,#f3c4ff,#ffe0f0,#e4c1ff);
-    overflow:hidden;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(-45deg,#ff9ecf,#ffd6ea,#ffc2d1,#ffe5ec);
+    background-size:400% 400%;
+    animation:fondo 10s ease infinite;
 }
 
-.container{
-    width:95%;
-    max-width:390px;
-    height:92vh;
-    border-radius:35px;
-    padding:28px;
-    background:rgba(255,255,255,0.25);
-    backdrop-filter:blur(25px);
-    box-shadow:0 25px 60px rgba(255,105,180,0.35);
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    overflow:hidden;
+@keyframes fondo{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
-.title{
+.card{
+    width:90%;
+    max-width:420px;
+    background:rgba(255,255,255,0.9);
+    backdrop-filter:blur(10px);
+    border-radius:25px;
+    padding:30px;
     text-align:center;
-    font-size:24px;
-    font-weight:bold;
-    color:white;
-    letter-spacing:2px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+    animation:entrada 1.5s ease;
+    position:relative;
+    z-index:10;
 }
 
-.slider{
-    flex:1;
-    overflow:hidden;
-    margin-top:20px;
+@keyframes entrada{
+    from{
+        opacity:0;
+        transform:translateY(50px) scale(0.8);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
 }
 
-.slides{
-    display:flex;
-    transition:transform 0.7s ease;
-    height:100%;
+h1{
+    color:#ff2e7a;
+    margin-bottom:20px;
+    font-size:35px;
+    animation:latido 2s infinite;
 }
 
-.slide{
-    min-width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    font-size:18px;
-    color:white;
-    padding:20px;
+@keyframes latido{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.08);}
+    100%{transform:scale(1);}
+}
+
+p{
+    color:#222;
+    font-size:17px;
     line-height:1.8;
 }
 
-/* FINAL BONITO */
-.final{
-    flex-direction:column;
-    animation:fadeIn 1.2s ease;
-}
-
-.final .text{
-    font-size:30px;
-    font-weight:bold;
-    color:#ffffff;
-    text-shadow:0 0 15px rgba(255,255,255,0.9);
-}
-
-.final .name{
-    font-size:22px;
-    margin-top:10px;
-    letter-spacing:2px;
-    color:#ffffff;
-    text-shadow:0 0 10px rgba(255,255,255,0.7);
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:scale(0.9);}
-    to{opacity:1; transform:scale(1);}
-}
-
-.controls{
-    display:flex;
-    justify-content:space-between;
-    margin-top:10px;
-}
-
 button{
-    flex:1;
-    margin:0 6px;
-    padding:12px;
+    margin-top:25px;
     border:none;
-    border-radius:30px;
-    font-size:15px;
-    font-weight:bold;
-    background:linear-gradient(45deg,#ff8edb,#ffb3ec);
+    padding:14px 25px;
+    border-radius:15px;
+    background:#ff2e7a;
     color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 5px 15px rgba(255,46,122,0.4);
 }
 
-.dots{
-    text-align:center;
-    margin-top:8px;
+button:hover{
+    transform:scale(1.1) rotate(-2deg);
 }
 
-.dot{
-    width:7px;
-    height:7px;
-    display:inline-block;
-    margin:4px;
-    background:white;
-    border-radius:50%;
-    opacity:0.4;
+.mensaje{
+    margin-top:25px;
+    display:none;
+    animation:aparecer 2s ease;
 }
 
-.dot.active{
-    opacity:1;
-    transform:scale(1.4);
+@keyframes aparecer{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
+
+.final{
+    margin-top:15px;
+    color:#ff2e7a;
+    font-size:25px;
+    animation:brillo 1.5s infinite;
+}
+
+@keyframes brillo{
+    0%{opacity:0.5;}
+    50%{opacity:1;}
+    100%{opacity:0.5;}
+}
+
+.corazon{
+    position:absolute;
+    color:#ff2e7a;
+    animation:subir linear forwards;
+    pointer-events:none;
+}
+
+@keyframes subir{
+    from{
+        transform:translateY(100vh) scale(0);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-120vh) scale(1.5);
+        opacity:0;
+    }
+}
+
+audio{
+    display:none;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="card">
 
-<div class="title">Carta</div>
+    <h1>Para Ti 💖</h1>
 
-<div class="slider">
-<div class="slides" id="slides">
+    <p>
+        Sé que a veces soy medio intenso JAJA 😭<br><br>
 
-<div class="slide">
-Te doy esta segunda oportunidad como amigos.
-No es por costumbre.
-No es por nostalgia.
-Es porque decidí creer una vez más.
-</div>
+        Pero quería hacerte algo bonito porque,
+        aunque seas una migajera profesional,
+        te quiero muchísimo 💀✨
+    </p>
 
-<div class="slide">
-Esta es tu segunda bala.
-Úsala bien.
-Porque no habrá una tercera.
-</div>
+    <button onclick="abrirCarta()">
+        Abrir Carta 💌
+    </button>
 
-<div class="slide">
-Pero hoy no es día de reclamos.
-Hoy es tu día.
-</div>
+    <div class="mensaje" id="mensaje">
 
-<div class="slide final">
-<div class="text">🎉 Feliz Cumpleaños 🎂</div>
-<div class="name">Elianny ✨</div>
-</div>
+        <p>
+            Gracias por existir, por hacerme reír,
+            por responder 8 horas después 😔
+            y por ser una persona tan especial.<br><br>
 
-</div>
-</div>
+            Ojalá nunca olvides lo increíble que eres 🌸
+        </p>
 
-<div class="dots">
-<span class="dot active"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-<span class="dot"></span>
-</div>
+        <div class="final">
+            Te quiero mucho 💖
+        </div>
 
-<div class="controls">
-<button onclick="prev()">◀</button>
-<button onclick="next()">▶</button>
-</div>
+    </div>
 
 </div>
 
 <script>
-let index=0;
-const slides=document.getElementById("slides");
-const dots=document.querySelectorAll(".dot");
-const total=4;
 
-function update(){
-slides.style.transform="translateX(-"+index*100+"%)";
-dots.forEach(d=>d.classList.remove("active"));
-dots[index].classList.add("active");
+function abrirCarta(){
+
+    document.getElementById("mensaje").style.display = "block";
+
+    lluviaCorazones();
+
 }
 
-function next(){
-index=(index+1)%total;
-update();
+function crearCorazon(){
+
+    const corazon = document.createElement("div");
+
+    corazon.classList.add("corazon");
+
+    corazon.innerHTML = ["💖","💕","💗","💞","🌸"][Math.floor(Math.random()*5)];
+
+    corazon.style.left = Math.random()*100 + "vw";
+
+    corazon.style.fontSize = (20 + Math.random()*30) + "px";
+
+    corazon.style.animationDuration = (3 + Math.random()*4) + "s";
+
+    document.body.appendChild(corazon);
+
+    setTimeout(()=>{
+        corazon.remove();
+    },7000);
+
 }
 
-function prev(){
-index=(index-1+total)%total;
-update();
+function lluviaCorazones(){
+
+    setInterval(()=>{
+        crearCorazon();
+    },150);
+
 }
+
 </script>
 
 </body>
