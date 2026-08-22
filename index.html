@@ -28,7 +28,7 @@
         .container {
             width: 100%;
             max-width: 550px;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.8);
             padding: 25px;
             border: 6px solid #ffe100; 
             border-radius: 12px;
@@ -39,7 +39,7 @@
 
         h1 {
             color: #ffe100;
-            font-size: 18px;
+            font-size: 16px;
             line-height: 1.6;
             text-shadow: 3px 3px #e60012; 
             margin-bottom: 20px;
@@ -48,7 +48,6 @@
         .sonic-gif {
             width: 160px;
             margin: 10px 0;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
         }
 
         .score-board {
@@ -66,7 +65,7 @@
             border: 3px solid white;
             font-family: 'Press Start 2P', monospace;
             font-size: 8px;
-            padding: 8px 12px;
+            padding: 10px 14px;
             cursor: pointer;
             border-radius: 5px;
             margin-bottom: 15px;
@@ -98,7 +97,7 @@
         }
 
         .ring-btn img {
-            width: 90px;
+            width: 85px;
             transition: transform 0.1s;
         }
 
@@ -109,7 +108,7 @@
         .floating-text {
             position: absolute;
             color: #ffe100;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: bold;
             pointer-events: none;
             animation: popUp 0.8s ease-out forwards;
@@ -118,7 +117,7 @@
 
         @keyframes popUp {
             0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
+            100% { opacity: 0; transform: translateY(-60px) scale(1.3); }
         }
 
         .message {
@@ -138,14 +137,14 @@
             left: 0;
             width: 100%;
             height: 60px;
-            background: repeating-linear-gradient(90deg, #503000, #503000 20px, #301800 20px, #301800 40px);
-            border-top: 4px solid #00a000;
+            background: #301800;
+            border-top: 6px solid #00a000;
             z-index: 2;
         }
 
         .running-sonic {
             position: absolute;
-            bottom: 12px;
+            bottom: 8px;
             left: -100px;
             width: 65px;
             animation: run 6s linear infinite;
@@ -165,6 +164,7 @@
         <button class="music-btn" onclick="toggleMusic()">🎵 ACTIVAR MÚSICA</button>
         <br>
 
+        <!-- GIF Estable de Sonic Bailando -->
         <img class="sonic-gif" src="https://giphy.com" alt="Sonic Fiesta">
 
         <div class="score-board">
@@ -176,8 +176,8 @@
         
         <div class="ring-container" id="ring-box">
             <button class="ring-btn" onclick="collectRing(event)">
-                <!-- Tu anillo con fondo transparente aplicado directamente -->
-                <img src="https://wikidex.org" alt="Anillo Clásico">
+                <!-- GIF transparente del anillo retro exacto que enviaste -->
+                <img src="https://giphy.com" alt="Anillo Clásico">
             </button>
         </div>
 
@@ -188,11 +188,13 @@
     </div>
 
     <div class="running-track">
+        <!-- Sonic corriendo en la parte inferior de la pantalla -->
         <img class="running-sonic" src="https://giphy.com" alt="Sonic Corriendo">
     </div>
 
-    <audio id="ring-sound" src="https://soundboard.com"></audio>
-    <audio id="bg-music" loop src="https://vgmdownloads.com"></audio>
+    <!-- Archivos de Audio alojados en servidores estables globales (Archive.org) -->
+    <audio id="ring-sound" src="https://archive.org"></audio>
+    <audio id="bg-music" loop src="https://archive.org"></audio>
 
     <script>
         let ringCount = 0;
@@ -203,9 +205,12 @@
             const music = document.getElementById('bg-music');
             const btn = document.querySelector('.music-btn');
             if (!musicPlaying) {
-                music.play();
-                btn.innerText = "⏸ PAUSAR MÚSICA";
-                musicPlaying = true;
+                music.play().then(() => {
+                    btn.innerText = "⏸ PAUSAR MÚSICA";
+                    musicPlaying = true;
+                }).catch(err => {
+                    alert("Por favor interactúa primero con la pantalla para reproducir audio.");
+                });
             } else {
                 music.pause();
                 btn.innerText = "🎵 ACTIVAR MÚSICA";
@@ -220,16 +225,20 @@
             document.getElementById('rings').innerText = ringCount;
             document.getElementById('score').innerText = String(scoreCount).padStart(6, '0');
 
+            // Efecto de sonido del anillo
             const sound = document.getElementById('ring-sound');
             sound.currentTime = 0;
-            sound.play().catch(e => console.log("Audio activado"));
+            sound.play().catch(e => console.log("Audio desbloqueado"));
 
+            // Animación flotante (+100)
             const ringBox = document.getElementById('ring-box');
             const floating = document.createElement('div');
             floating.className = 'floating-text';
             floating.innerText = '+100';
-            floating.style.left = (event.clientX - ringBox.getBoundingClientRect().left - 20) + 'px';
-            floating.style.top = (event.clientY - ringBox.getBoundingClientRect().top - 20) + 'px';
+            
+            const rect = ringBox.getBoundingClientRect();
+            floating.style.left = (event.clientX - rect.left - 20) + 'px';
+            floating.style.top = (event.clientY - rect.top - 20) + 'px';
             ringBox.appendChild(floating);
 
             setTimeout(() => { floating.remove(); }, 800);
