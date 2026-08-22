@@ -1,43 +1,147 @@
-# 🎂 ¡FELIZ CUMPLEAÑOS, [NOMBRE DE TU AMIGA]! ⚡
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños! 🦔🎉</title>
+    <!-- Fuente pixel art para estilo retro -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0053a6; /* Azul Sonic */
+            color: white;
+            font-family: 'Press Start 2P', monospace;
+            text-align: center;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: linear-gradient(0deg, #002f6c 25%, #0053a6 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
 
-<div align="center">
-  <!-- GIF de Sonic celebrando -->
-  <img src="https://giphy.com" width="300" alt="Sonic Party">
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border: 6px solid #ffe100; /* Amarillo Anillo */
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px #ffe100;
+        }
 
-  <h2>🎉 ¡Level Up! Has alcanzado el nivel [Edad de tu amiga] 🎮</h2>
-  <p><i>"¡Gotta go fast hacia un año increíble!"</i></p>
-</div>
+        h1 {
+            color: #ffe100;
+            font-size: 20px;
+            line-height: 1.5;
+            text-shadow: 3px 3px #e60012; /* Rojo Knuckles */
+        }
 
-<hr>
+        .sonic-gif {
+            width: 200px;
+            margin: 20px 0;
+        }
 
-## 💎 Tus "Chaos Emeralds" (Lo que te hace genial)
+        .score-board {
+            font-size: 12px;
+            color: #ffe100;
+            margin: 20px 0;
+        }
 
-Este año has desbloqueado habilidades increíbles. ¡Eres la combinación perfecta del universo de Sonic!
+        .ring-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
 
-* 🔵 **Velocidad de Sonic:** Para resolver problemas y aprender cosas nuevas en tiempo récord.
-* 🔴 **Fuerza de Knuckles:** Para superar cualquier bug o desafío que se te ponga enfrente.
-* 🟡 **Inteligencia de Tails:** Por tu gran creatividad y por ser una excelente amiga/compañera.
+        .ring-btn:hover {
+            transform: scale(1.1);
+        }
 
-<hr>
+        .ring-btn img {
+            width: 100px;
+        }
 
-## 🎁 ¡Presiona START para ver tu regalo!
+        .message {
+            font-size: 10px;
+            line-height: 1.8;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: left;
+        }
 
-<div align="center">
-  <p>Haz clic en el anillo dorado para abrir tu sorpresa:</p>
-  
-  <!-- Enlace interactivo con un diseño de anillo -->
-  <a href="[LINK_A_SU_REGALO]">
-    <img src="https://giphy.com" width="120" alt="Anillo de Sonic">
-  </a>
-  
-  <br>
-  <b>¡Haz clic en el anillo! 👆</b>
-</div>
+        /* Animación de Sonic corriendo por abajo */
+        .running-sonic {
+            position: fixed;
+            bottom: 10px;
+            left: -150px;
+            width: 100px;
+            animation: run 8s linear infinite;
+            z-index: 100;
+        }
 
-<hr>
+        @keyframes run {
+            0% { left: -150px; }
+            100% { left: 110vw; }
+        }
+    </style>
+</head>
+<body>
 
-## ✍️ Dedicatoria Especial
+    <!-- Sonic corriendo en el fondo -->
+    <img class="running-sonic" src="https://giphy.com" alt="Sonic">
 
-> "[Aquí escribe un mensaje bonito, personalizado y sincero para ella. Puedes desearle un gran año, agradecerle por su amistad y desearle mucho éxito en sus proyectos de código o estudios.]"
-> 
-> — Con mucho cariño, **[Tu Nombre]** 💙
+    <div class="container">
+        <h1>¡FELIZ CUMPLEAÑOS [NOMBRE]! ⚡</h1>
+        
+        <img class="sonic-gif" src="https://giphy.com" alt="Sonic Fiesta">
+
+        <div class="score-board">
+            <p>SCORE: <span id="score">000000</span></p>
+            <p>RINGS: 🟡 <span id="rings">0</span></p>
+        </div>
+
+        <p style="font-size: 10px;">¡Haz clic en el anillo para recolectarlo!</p>
+        
+        <!-- Botón del Anillo Interactivo -->
+        <button class="ring-btn" onclick="collectRing()">
+            <img src="https://giphy.com" alt="Anillo Dorada">
+        </button>
+
+        <div class="message">
+            <p><strong>De: [Tu Nombre]</strong></p>
+            <p>¡Feliz subida de nivel! Espero que este nuevo año esté lleno de proyectos exitosos, código sin bugs y mucha velocidad para alcanzar todas tus metas. Eres una persona increíble y programadora excepcional. ¡Disfruta tu día al máximo! 💙✨</p>
+        </div>
+    </div>
+
+    <!-- Audio del juego original -->
+    <audio id="ring-sound" src="https://soundboard.com"></audio>
+
+    <script>
+        let ringCount = 0;
+        let scoreCount = 0;
+
+        function collectRing() {
+            // Sumar anillos y puntaje
+            ringCount++;
+            scoreCount += 100;
+            
+            // Actualizar textos en pantalla
+            document.getElementById('rings').innerText = ringCount;
+            document.getElementById('score').innerText = String(scoreCount).padStart(6, '0');
+
+            // Reproducir sonido clásico del anillo
+            const sound = document.getElementById('ring-sound');
+            sound.currentTime = 0; // Reinicia el audio si hace clics rápidos
+            sound.play();
+
+            // Pequeño secreto: Al llegar a 10 anillos pasa algo
+            if (ringCount === 10) {
+                alert("¡Felicidades! Desbloqueaste el modo Súper Sonic 🌟 ¡Que tengas un gran año!");
+            </div>
+        }
+    </script>
+</body>
+</html>
