@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Feliz Cumpleaños! 🦔🎉</title>
+    <title>¡Feliz Cumpleaños Jazmín! 🦔🎉</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         * {
@@ -23,14 +23,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-        }
-
-        /* Capa para las esmeraldas flotando de fondo */
-        .emerald-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
         }
 
         .container {
@@ -68,6 +60,24 @@
             line-height: 2;
         }
 
+        .music-btn {
+            background: #e60012;
+            color: white;
+            border: 3px solid white;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px #99000b;
+        }
+
+        .music-btn:active {
+            box-shadow: 0 0px #99000b;
+            transform: translateY(4px);
+        }
+
         .ring-container {
             position: relative;
             display: inline-block;
@@ -96,7 +106,6 @@
             transform: scale(0.8);
         }
 
-        /* Texto flotante flotante flotante (+100 SCORE) */
         .floating-text {
             position: absolute;
             color: #ffe100;
@@ -120,10 +129,9 @@
             border-radius: 8px;
             margin-top: 20px;
             text-align: left;
-            border-left: 4px solid #e60012;
+            border-left: 4px solid #ffe100;
         }
 
-        /* Sonic corriendo en bucle al fondo de la pantalla */
         .running-track {
             position: fixed;
             bottom: 0;
@@ -151,16 +159,15 @@
 </head>
 <body>
 
-    <!-- Capa de fondo con elementos flotantes -->
-    <div class="emerald-bg" id="emerald-layer"></div>
-
     <div class="container">
-        <h1>¡FELIZ CUMPLEAÑOS, [NOMBRE DE TU AMIGA]! ⚡</h1>
+        <h1>¡FELIZ CUMPLEAÑOS, JAZMÍN! ⚡</h1>
         
-        <!-- Sonic bailando con gorrito de fiesta -->
+        <!-- Botón de música de Green Hill Zone -->
+        <button class="music-btn" onclick="toggleMusic()">🎵 ACTIVAR MÚSICA</button>
+        <br>
+
         <img class="sonic-gif" src="https://giphy.com" alt="Sonic Fiesta">
 
-        <!-- Marcador clásico de Sonic -->
         <div class="score-board">
             <div>SCORE: <span id="score">000000</span></div>
             <div>RINGS: 🟡 <span id="rings">0</span></div>
@@ -168,46 +175,57 @@
 
         <p style="font-size: 8px; color: #aaa;">¡Haz clic al anillo para recolectar!</p>
         
-        <!-- Contenedor del anillo interactivo -->
         <div class="ring-container" id="ring-box">
             <button class="ring-btn" onclick="collectRing(event)">
                 <img src="https://giphy.com" alt="Anillo Dorado">
             </button>
         </div>
 
-        <!-- Dedicatoria -->
+        <!-- Dedicatoria con nombres reales -->
         <div class="message">
-            <p><strong>De: [Tu Nombre]</strong></p>
-            <p>¡Feliz subida de nivel! 🎂 Que este nuevo año corra a la velocidad de la luz hacia el éxito. Eres una gran amiga, llena de una energía increíble y capaz de superar cualquier obstáculo como todo una Chaos Emerald. ¡Disfruta muchísimo tu día! 🔵✨</p>
+            <p><strong>De: Diori</strong></p>
+            <p>¡Feliz subida de nivel, Jazmín! 🎂 Que este nuevo año corra a la velocidad de la luz hacia el éxito y la felicidad. Eres una amiga genial, con una energía increíble y capaz de superar cualquier obstáculo que se te ponga en frente como si tuvieras las Chaos Emeralds. ¡Disfruta muchísimo tu día al máximo! 🔵✨</p>
         </div>
     </div>
 
-    <!-- Pista de suelo y Sonic corriendo -->
     <div class="running-track">
         <img class="running-sonic" src="https://giphy.com" alt="Sonic Corriendo">
     </div>
 
-    <!-- Sonido MP3 original del anillo -->
+    <!-- Audios -->
     <audio id="ring-sound" src="https://soundboard.com"></audio>
+    <audio id="bg-music" loop src="https://vgmdownloads.com"></audio>
 
     <script>
         let ringCount = 0;
         let scoreCount = 0;
+        let musicPlaying = false;
+
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const btn = document.querySelector('.music-btn');
+            if (!musicPlaying) {
+                music.play();
+                btn.innerText = "⏸ PAUSAR MÚSICA";
+                musicPlaying = true;
+            } else {
+                music.pause();
+                btn.innerText = "🎵 ACTIVAR MÚSICA";
+                musicPlaying = false;
+            }
+        }
 
         function collectRing(event) {
             ringCount++;
             scoreCount += 100;
             
-            // Actualizar interfaz
             document.getElementById('rings').innerText = ringCount;
             document.getElementById('score').innerText = String(scoreCount).padStart(6, '0');
 
-            // Reproducir sonido clásico (resetea para permitir clics rápidos)
             const sound = document.getElementById('ring-sound');
             sound.currentTime = 0;
-            sound.play().catch(e => console.log("Audio activado tras interactuar"));
+            sound.play().catch(e => console.log("Audio activado"));
 
-            // Crear texto flotante "+100" en la posición del clic
             const ringBox = document.getElementById('ring-box');
             const floating = document.createElement('div');
             floating.className = 'floating-text';
@@ -216,20 +234,16 @@
             floating.style.top = (event.clientY - ringBox.getBoundingClientRect().top - 20) + 'px';
             ringBox.appendChild(floating);
 
-            // Eliminar el texto flotante cuando acabe la animación
             setTimeout(() => { floating.remove(); }, 800);
 
-            // Sorpresa cuando consiga 10 anillos
             if (ringCount === 10) {
                 triggerSuperSonic();
             }
         }
 
-        // Evento especial de Super Sonic
         function triggerSuperSonic() {
             document.body.style.backgroundImage = "linear-gradient(0deg, #9e7a00 25%, #ffe100 100%)";
-            document.body.style.color = "#000";
-            alert("🌟 ¡Felicidades! ¡Has reunido suficientes anillos y te has transformado en Súper Sonic! ¡Feliz Cumpleaños! 🌟");
+            alert("🌟 ¡Felicidades Jazmín! ¡Has reunido suficientes anillos y te has transformado en Súper Sonic! ¡Feliz Cumpleaños! 🌟");
         }
     </script>
 </body>
