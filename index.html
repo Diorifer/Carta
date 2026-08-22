@@ -4,143 +4,232 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Feliz Cumpleaños! 🦔🎉</title>
-    <!-- Fuente pixel art para estilo retro -->
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
-            background-color: #0053a6; /* Azul Sonic */
+            background-color: #0053a6; 
             color: white;
             font-family: 'Press Start 2P', monospace;
             text-align: center;
-            padding: 20px;
+            margin: 0;
+            padding: 10px;
             overflow-x: hidden;
             background-image: linear-gradient(0deg, #002f6c 25%, #0053a6 100%);
             min-height: 100vh;
-            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Capa para las esmeraldas flotando de fondo */
+        .emerald-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border: 6px solid #ffe100; /* Amarillo Anillo */
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px #ffe100;
+            width: 100%;
+            max-width: 550px;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 25px;
+            border: 6px solid #ffe100; 
+            border-radius: 12px;
+            box-shadow: 0px 0px 25px #ffe100;
+            position: relative;
+            z-index: 10;
         }
 
         h1 {
             color: #ffe100;
-            font-size: 20px;
-            line-height: 1.5;
-            text-shadow: 3px 3px #e60012; /* Rojo Knuckles */
+            font-size: 18px;
+            line-height: 1.6;
+            text-shadow: 3px 3px #e60012; 
+            margin-bottom: 20px;
         }
 
         .sonic-gif {
-            width: 200px;
-            margin: 20px 0;
+            width: 160px;
+            margin: 10px 0;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
         }
 
         .score-board {
-            font-size: 12px;
+            font-size: 11px;
             color: #ffe100;
-            margin: 20px 0;
+            margin: 20px auto;
+            text-align: left;
+            width: 200px;
+            line-height: 2;
+        }
+
+        .ring-container {
+            position: relative;
+            display: inline-block;
+            margin: 15px 0;
         }
 
         .ring-btn {
             background: none;
             border: none;
             cursor: pointer;
-            transition: transform 0.2s;
+            outline: none;
+            animation: float 2s ease-in-out infinite;
         }
 
-        .ring-btn:hover {
-            transform: scale(1.1);
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .ring-btn img {
-            width: 100px;
+            width: 90px;
+            transition: transform 0.1s;
+        }
+
+        .ring-btn:active img {
+            transform: scale(0.8);
+        }
+
+        /* Texto flotante flotante flotante (+100 SCORE) */
+        .floating-text {
+            position: absolute;
+            color: #ffe100;
+            font-size: 10px;
+            font-weight: bold;
+            pointer-events: none;
+            animation: popUp 0.8s ease-out forwards;
+            text-shadow: 2px 2px #000;
+        }
+
+        @keyframes popUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
         }
 
         .message {
-            font-size: 10px;
+            font-size: 9px;
             line-height: 1.8;
             background: rgba(255, 255, 255, 0.1);
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 20px;
             text-align: left;
+            border-left: 4px solid #e60012;
         }
 
-        /* Animación de Sonic corriendo por abajo */
-        .running-sonic {
+        /* Sonic corriendo en bucle al fondo de la pantalla */
+        .running-track {
             position: fixed;
-            bottom: 10px;
-            left: -150px;
-            width: 100px;
-            animation: run 8s linear infinite;
-            z-index: 100;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: repeating-linear-gradient(90deg, #503000, #503000 20px, #301800 20px, #301800 40px);
+            border-top: 4px solid #00a000;
+            z-index: 2;
+        }
+
+        .running-sonic {
+            position: absolute;
+            bottom: 12px;
+            left: -100px;
+            width: 65px;
+            animation: run 6s linear infinite;
         }
 
         @keyframes run {
-            0% { left: -150px; }
-            100% { left: 110vw; }
+            0% { left: -100px; }
+            100% { left: 105vw; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Sonic corriendo en el fondo -->
-    <img class="running-sonic" src="https://giphy.com" alt="Sonic">
+    <!-- Capa de fondo con elementos flotantes -->
+    <div class="emerald-bg" id="emerald-layer"></div>
 
     <div class="container">
-        <h1>¡FELIZ CUMPLEAÑOS [NOMBRE]! ⚡</h1>
+        <h1>¡FELIZ CUMPLEAÑOS, [NOMBRE DE TU AMIGA]! ⚡</h1>
         
+        <!-- Sonic bailando con gorrito de fiesta -->
         <img class="sonic-gif" src="https://giphy.com" alt="Sonic Fiesta">
 
+        <!-- Marcador clásico de Sonic -->
         <div class="score-board">
-            <p>SCORE: <span id="score">000000</span></p>
-            <p>RINGS: 🟡 <span id="rings">0</span></p>
+            <div>SCORE: <span id="score">000000</span></div>
+            <div>RINGS: 🟡 <span id="rings">0</span></div>
         </div>
 
-        <p style="font-size: 10px;">¡Haz clic en el anillo para recolectarlo!</p>
+        <p style="font-size: 8px; color: #aaa;">¡Haz clic al anillo para recolectar!</p>
         
-        <!-- Botón del Anillo Interactivo -->
-        <button class="ring-btn" onclick="collectRing()">
-            <img src="https://giphy.com" alt="Anillo Dorada">
-        </button>
+        <!-- Contenedor del anillo interactivo -->
+        <div class="ring-container" id="ring-box">
+            <button class="ring-btn" onclick="collectRing(event)">
+                <img src="https://giphy.com" alt="Anillo Dorado">
+            </button>
+        </div>
 
+        <!-- Dedicatoria -->
         <div class="message">
             <p><strong>De: [Tu Nombre]</strong></p>
-            <p>¡Feliz subida de nivel! Espero que este nuevo año esté lleno de proyectos exitosos, código sin bugs y mucha velocidad para alcanzar todas tus metas. Eres una persona increíble y programadora excepcional. ¡Disfruta tu día al máximo! 💙✨</p>
+            <p>¡Feliz subida de nivel! 🎂 Que este nuevo año corra a la velocidad de la luz hacia el éxito. Eres una gran amiga, llena de una energía increíble y capaz de superar cualquier obstáculo como todo una Chaos Emerald. ¡Disfruta muchísimo tu día! 🔵✨</p>
         </div>
     </div>
 
-    <!-- Audio del juego original -->
+    <!-- Pista de suelo y Sonic corriendo -->
+    <div class="running-track">
+        <img class="running-sonic" src="https://giphy.com" alt="Sonic Corriendo">
+    </div>
+
+    <!-- Sonido MP3 original del anillo -->
     <audio id="ring-sound" src="https://soundboard.com"></audio>
 
     <script>
         let ringCount = 0;
         let scoreCount = 0;
 
-        function collectRing() {
-            // Sumar anillos y puntaje
+        function collectRing(event) {
             ringCount++;
             scoreCount += 100;
             
-            // Actualizar textos en pantalla
+            // Actualizar interfaz
             document.getElementById('rings').innerText = ringCount;
             document.getElementById('score').innerText = String(scoreCount).padStart(6, '0');
 
-            // Reproducir sonido clásico del anillo
+            // Reproducir sonido clásico (resetea para permitir clics rápidos)
             const sound = document.getElementById('ring-sound');
-            sound.currentTime = 0; // Reinicia el audio si hace clics rápidos
-            sound.play();
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Audio activado tras interactuar"));
 
-            // Pequeño secreto: Al llegar a 10 anillos pasa algo
+            // Crear texto flotante "+100" en la posición del clic
+            const ringBox = document.getElementById('ring-box');
+            const floating = document.createElement('div');
+            floating.className = 'floating-text';
+            floating.innerText = '+100';
+            floating.style.left = (event.clientX - ringBox.getBoundingClientRect().left - 20) + 'px';
+            floating.style.top = (event.clientY - ringBox.getBoundingClientRect().top - 20) + 'px';
+            ringBox.appendChild(floating);
+
+            // Eliminar el texto flotante cuando acabe la animación
+            setTimeout(() => { floating.remove(); }, 800);
+
+            // Sorpresa cuando consiga 10 anillos
             if (ringCount === 10) {
-                alert("¡Felicidades! Desbloqueaste el modo Súper Sonic 🌟 ¡Que tengas un gran año!");
-            </div>
+                triggerSuperSonic();
+            }
+        }
+
+        // Evento especial de Super Sonic
+        function triggerSuperSonic() {
+            document.body.style.backgroundImage = "linear-gradient(0deg, #9e7a00 25%, #ffe100 100%)";
+            document.body.style.color = "#000";
+            alert("🌟 ¡Felicidades! ¡Has reunido suficientes anillos y te has transformado en Súper Sonic! ¡Feliz Cumpleaños! 🌟");
         }
     </script>
 </body>
