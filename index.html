@@ -1,257 +1,385 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Feliz Cumpleaños Jazmín! 🦔🎉</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            background-color: #0053a6; 
-            color: white;
-            font-family: 'Press Start 2P', monospace;
-            text-align: center;
-            margin: 0;
-            padding: 10px;
-            overflow-x: hidden;
-            background-image: linear-gradient(0deg, #002f6c 25%, #0053a6 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡Felices 18, Buchua! | 27 Nov</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --card-bg: #2b2623;
+      --card-inner: #3a332f;
+      --border-light: #6e6259;
+      --border-dark: #161311;
+      --accent-green: #55ff55;
+      --accent-gold: #ffaa00;
+      --accent-cyan: #55ffff;
+      --heart-red: #ff3b3b;
+      --text-main: #f5efe6;
+      --text-muted: #c8bdb0;
+    }
 
-        .container {
-            width: 100%;
-            max-width: 550px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 25px;
-            border: 6px solid #ffe100; 
-            border-radius: 12px;
-            box-shadow: 0px 0px 25px #ffe100;
-            position: relative;
-            z-index: 10;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        h1 {
-            color: #ffe100;
-            font-size: 16px;
-            line-height: 1.6;
-            text-shadow: 3px 3px #e60012; 
-            margin-bottom: 20px;
-        }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(255, 170, 0, 0.14), transparent 45%),
+        linear-gradient(180deg, #151b29 0%, #1f293d 55%, #161b24 100%);
+      color: var(--text-main);
+      font-family: 'VT323', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 28px 16px 48px;
+      overflow-x: hidden;
+    }
 
-        .sonic-gif {
-            width: 160px;
-            margin: 10px 0;
-        }
+    /* Contenedor vertical estilo interfaz / pergamino */
+    .letter-wrapper {
+      width: 100%;
+      max-width: 440px;
+      background-color: var(--card-bg);
+      border: 4px solid var(--border-dark);
+      box-shadow:
+        inset 0 0 0 3px var(--border-light),
+        0 14px 30px rgba(0, 0, 0, 0.55);
+      padding: 22px 20px;
+      position: relative;
+      z-index: 2;
+    }
 
-        .score-board {
-            font-size: 11px;
-            color: #ffe100;
-            margin: 20px auto;
-            text-align: left;
-            width: 200px;
-            line-height: 2;
-        }
+    .hud-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--border-dark);
+      padding: 10px 12px;
+      border: 2px solid var(--border-light);
+      margin-bottom: 14px;
+      font-size: 1.15rem;
+    }
 
-        .music-btn {
-            background: #e60012;
-            color: white;
-            border: 3px solid white;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
-            padding: 10px 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px #99000b;
-        }
+    .hearts {
+      display: flex;
+      gap: 4px;
+      color: var(--heart-red);
+    }
 
-        .music-btn:active {
-            box-shadow: 0 0px #99000b;
-            transform: translateY(4px);
-        }
+    .tag {
+      color: var(--accent-gold);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.62rem;
+    }
 
-        .ring-container {
-            position: relative;
-            display: inline-block;
-            margin: 15px 0;
-        }
+    /* Barra de experiencia (XP) LVL 18 */
+    .xp-container {
+      margin-bottom: 20px;
+    }
 
-        .ring-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            outline: none;
-            animation: float 2s ease-in-out infinite;
-        }
+    .xp-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.58rem;
+      color: var(--accent-green);
+      margin-bottom: 6px;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+    .xp-bar {
+      width: 100%;
+      height: 12px;
+      background-color: var(--border-dark);
+      border: 2px solid var(--border-light);
+      padding: 1px;
+    }
 
-        .ring-btn img {
-            width: 85px;
-            transition: transform 0.1s;
-        }
+    .xp-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #32b832, #80ff20);
+    }
 
-        .ring-btn:active img {
-            transform: scale(0.8);
-        }
+    .header {
+      text-align: center;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 2px dashed var(--border-light);
+    }
 
-        .floating-text {
-            position: absolute;
-            color: #ffe100;
-            font-size: 12px;
-            font-weight: bold;
-            pointer-events: none;
-            animation: popUp 0.8s ease-out forwards;
-            text-shadow: 2px 2px #000;
-        }
+    /* Pastel pixelado minimalista */
+    .pixel-cake {
+      margin: 0 auto 14px;
+      width: 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        @keyframes popUp {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-60px) scale(1.3); }
-        }
+    .candle-flame {
+      width: 6px;
+      height: 8px;
+      background-color: var(--accent-gold);
+      box-shadow: 0 0 8px var(--accent-gold);
+      animation: flicker 0.9s infinite alternate;
+    }
 
-        .message {
-            font-size: 9px;
-            line-height: 1.8;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: left;
-            border-left: 4px solid #ffe100;
-        }
+    .candle-stick {
+      width: 6px;
+      height: 10px;
+      background-color: #ff5555;
+    }
 
-        .running-track {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            background: #301800;
-            border-top: 6px solid #00a000;
-            z-index: 2;
-        }
+    .cake-top {
+      width: 56px;
+      height: 10px;
+      background-color: #fff6ea;
+      border-top: 2px solid var(--border-dark);
+      border-left: 2px solid var(--border-dark);
+      border-right: 2px solid var(--border-dark);
+    }
 
-        .running-sonic {
-            position: absolute;
-            bottom: 8px;
-            left: -100px;
-            width: 65px;
-            animation: run 6s linear infinite;
-        }
+    .cake-base {
+      width: 64px;
+      height: 16px;
+      background-color: #8b5a2b;
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 0 3px 0 #a86f38;
+    }
 
-        @keyframes run {
-            0% { left: -100px; }
-            100% { left: 105vw; }
-        }
-    </style>
+    @keyframes flicker {
+      from { transform: scale(1); opacity: 0.9; }
+      to { transform: scale(1.15); opacity: 1; }
+    }
+
+    .achievement-badge {
+      display: inline-block;
+      background-color: var(--border-dark);
+      border: 2px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.54rem;
+      line-height: 1.4;
+      padding: 6px 10px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+    }
+
+    .letter-body {
+      background-color: var(--card-inner);
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 0 0 0 2px var(--border-light);
+      padding: 18px 16px;
+      font-size: 1.35rem;
+      line-height: 1.45;
+    }
+
+    .letter-body p + p {
+      margin-top: 14px;
+    }
+
+    .highlight-gold {
+      color: var(--accent-gold);
+    }
+
+    .highlight-green {
+      color: var(--accent-green);
+    }
+
+    .highlight-cyan {
+      color: var(--accent-cyan);
+    }
+
+    .secret-box {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .mc-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.66rem;
+      line-height: 1.5;
+      background-color: #5c5752;
+      color: #ffffff;
+      border: 3px solid var(--border-dark);
+      box-shadow: inset 2px 2px 0 #8f8880, inset -2px -2px 0 #3b3734;
+      padding: 12px 14px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .mc-btn:hover {
+      background-color: #6b655f;
+      color: var(--accent-gold);
+    }
+
+    .mc-btn:active {
+      box-shadow: inset -2px -2px 0 #8f8880, inset 2px 2px 0 #3b3734;
+    }
+
+    .secret-note {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      background-color: var(--border-dark);
+      border: 2px solid var(--accent-gold);
+      font-size: 1.25rem;
+      color: var(--accent-gold);
+      text-align: left;
+    }
+
+    .secret-note.visible {
+      display: block;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+    }
+
+    .signature {
+      margin-top: 6px;
+      color: var(--accent-green);
+      font-size: 1.35rem;
+    }
+
+    /* Partículas pixeladas al abrir el regalo */
+    .spark {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      pointer-events: none;
+      z-index: 10;
+      animation: pop 1s ease-out forwards;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--dx), var(--dy)) scale(0.4);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>¡FELIZ CUMPLEAÑOS, JAZMÍN! ⚡</h1>
-        
-        <button class="music-btn" onclick="toggleMusic()">🎵 ACTIVAR MÚSICA</button>
-        <br>
-
-        <!-- GIF Estable de Sonic Bailando -->
-        <img class="sonic-gif" src="https://media.tenor.com/9yvXHMTiUcYAAAAi/sonic-the-hedgehog-dancing.gif" alt="Sonic Fiesta">
-
-        <div class="score-board">
-            <div>SCORE: <span id="score">000000</span></div>
-            <div>RINGS: 🟡 <span id="rings">0</span></div>
-        </div>
-
-        <p style="font-size: 8px; color: #aaa;">¡Haz clic al anillo para recolectar!</p>
-        
-        <div class="ring-container" id="ring-box">
-            <button class="ring-btn" onclick="collectRing(event)">
-                <!-- GIF transparente del anillo retro exacto que enviaste -->
-                <img src="https://media.tenor.com/42FLUDoGy58AAAAi/sonic-ring-sonic.gif" alt="Anillo Clásico">
-            </button>
-        </div>
-
-        <div class="message">
-            <p><strong>De: Diori</strong></p>
-            <p>¡Feliz subida de nivel, Jazmín! 🎂 Que este nuevo año corra a la velocidad de la luz hacia el éxito y la felicidad. Eres una amiga genial, con una energía increíble y capaz de superar cualquier obstáculo que se te ponga en frente como si tuvieras las Chaos Emeralds. ¡Disfruta muchísimo tu día al máximo! 🔵✨</p>
-        </div>
+  <main class="letter-wrapper">
+    <div class="hud-bar">
+      <div class="hearts" aria-label="Vida llena">♥ ♥ ♥ ♥ ♥</div>
+      <span class="tag">27 DE NOVIEMBRE</span>
     </div>
 
-    <div class="running-track">
-        <!-- Sonic corriendo en la parte inferior de la pantalla -->
-        <img class="running-sonic" src="https://media.tenor.com/nE5k83-1AzUAAAAi/sonic-the-hedgehog.gif" alt="Sonic Corriendo">
+    <div class="xp-container">
+      <div class="xp-label">
+        <span>MAYORÍA DE EDAD</span>
+        <span>LVL 18 ★</span>
+      </div>
+      <div class="xp-bar">
+        <div class="xp-fill"></div>
+      </div>
     </div>
 
-    <!-- Archivos de Audio alojados en servidores estables globales (Archive.org) -->
-    <audio id="ring-sound" src="https://www.myinstants.com/media/sounds/26f8b9_sonic_ring_sound_effect.mp3"></audio>
-    <audio id="bg-music" loop src="https://cs1.mp3.pm/download/46986017/UW5XWUd1MCtQeFZmVUdMbGVUMmU1RmJyWGswTFlRY0hvMXdxVGwxQ1ptcXFHVU9iOFY0T0I2d01PRmVpQ0I2dUlvem1tUG9OZVFiVEppTzkxZFdwMUlUTmNTUEVNbiszRTZXTzZZak1handmRXhmdzlNTkdBL2VFcFFYT0xEN1E/Sonic_the_Hedgehog_OST_-_Green_Hill_Zone_(mp3.pm).mp3"></audio>
+    <header class="header">
+      <div class="pixel-cake" aria-hidden="true">
+        <div class="candle-flame"></div>
+        <div class="candle-stick"></div>
+        <div class="cake-top"></div>
+        <div class="cake-base"></div>
+      </div>
+      <div class="achievement-badge">★ LOGRO DESBLOQUEADO: NIVEL 18</div>
+      <h1>¡FELICES 18, BUCHUA!</h1>
+      <p class="subtitle">Para María — edición especial del 27 de noviembre</p>
+    </header>
 
-    <script>
-        let ringCount = 0;
-        let scoreCount = 0;
-        let musicPlaying = false;
+    <section class="letter-body">
+      <p>Hola <span class="highlight-gold">Buchua</span>,</p>
 
-        function toggleMusic() {
-            const music = document.getElementById('bg-music');
-            const btn = document.querySelector('.music-btn');
-            if (!musicPlaying) {
-                music.play().then(() => {
-                    btn.innerText = "⏸ PAUSAR MÚSICA";
-                    musicPlaying = true;
-                }).catch(err => {
-                    alert("Por favor interactúa primero con la pantalla para reproducir audio.");
-                });
-            } else {
-                music.pause();
-                btn.innerText = "🎵 ACTIVAR MÚSICA";
-                musicPlaying = false;
-            }
-        }
+      <p>
+        ¡Llegó el <span class="highlight-cyan">27 de noviembre</span> y oficialmente desbloqueaste el
+        <span class="highlight-gold">Nivel 18</span>! Una nueva etapa empieza hoy, y quería celebrarlo
+        dejándote este pequeño detalle hecho a tu medida.
+      </p>
 
-        function collectRing(event) {
-            ringCount++;
-            scoreCount += 100;
-            
-            document.getElementById('rings').innerText = ringCount;
-            document.getElementById('score').innerText = String(scoreCount).padStart(6, '0');
+      <p>
+        Gracias por <span class="highlight-green">[escribe aquí qué agradeces de su amistad o algún recuerdo juntos]</span>.
+        Ojalá estos 18 vengan cargados de nuevas aventuras, sueños cumplidos, partidas épicas y mucha tranquilidad.
+      </p>
 
-            // Efecto de sonido del anillo
-            const sound = document.getElementById('ring-sound');
-            sound.currentTime = 0;
-            sound.play().catch(e => console.log("Audio desbloqueado"));
+      <p>
+        Aunque el mapa ahora tenga misiones más grandes, recuerda que siempre cuentas con un spawn point seguro,
+        buena compañía y alguien que celebra cada uno de tus logros.
+      </p>
 
-            // Animación flotante (+100)
-            const ringBox = document.getElementById('ring-box');
-            const floating = document.createElement('div');
-            floating.className = 'floating-text';
-            floating.innerText = '+100';
-            
-            const rect = ringBox.getBoundingClientRect();
-            floating.style.left = (event.clientX - rect.left - 20) + 'px';
-            floating.style.top = (event.clientY - rect.top - 20) + 'px';
-            ringBox.appendChild(floating);
+      <div class="secret-box">
+        <button class="mc-btn" id="revealBtn" type="button">
+          ABRIR COFRE DE LOS 18
+        </button>
+        <div class="secret-note" id="secretNote">
+          ✦ [Escribe aquí tu deseo especial para sus 18, un chiste interno o el plan para celebrar juntos.]
+        </div>
+      </div>
+    </section>
 
-            setTimeout(() => { floating.remove(); }, 800);
+    <footer class="footer">
+      <p>¡Disfruta muchísimo tus 18, Buchua!</p>
+      <p class="signature">Con mucho cariño, [TU NOMBRE]</p>
+    </footer>
+  </main>
 
-            if (ringCount === 10) {
-                triggerSuperSonic();
-            }
-        }
+  <script>
+    const btn = document.getElementById('revealBtn');
+    const note = document.getElementById('secretNote');
+    const colors = ['#55ff55', '#ffaa00', '#55ffff', '#ff5555', '#ffffff'];
 
-        function triggerSuperSonic() {
-            document.body.style.backgroundImage = "linear-gradient(0deg, #9e7a00 25%, #ffe100 100%)";
-            alert("🌟 ¡Felicidades Jazmín! ¡Has reunido suficientes anillos y te has transformado en Súper Sonic! ¡Feliz Cumpleaños! 🌟");
-        }
-    </script>
+    function launchSparks(x, y) {
+      for (let i = 0; i < 24; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'spark';
+        spark.style.left = `${x}px`;
+        spark.style.top = `${y}px`;
+        spark.style.backgroundColor = colors[i % colors.length];
+
+        const angle = (Math.PI * 2 * i) / 24;
+        const distance = 55 + Math.random() * 75;
+        spark.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
+        spark.style.setProperty('--dy', `${Math.sin(angle) * distance - 20}px`);
+
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 1000);
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      const isOpen = note.classList.toggle('visible');
+      btn.textContent = isOpen ? 'CERRAR COFRE DE LOS 18' : 'ABRIR COFRE DE LOS 18';
+      if (isOpen) {
+        const rect = btn.getBoundingClientRect();
+        launchSparks(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      }
+    });
+  </script>
 </body>
 </html>
